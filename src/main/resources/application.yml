@@ -1,0 +1,14 @@
+server:
+    port: 8088
+
+mybatis:
+    default-datasource: defaultDataSource
+    mapper-locations: classpath*:mappers/*.xml
+
+spring:
+    datasource:
+        druid:
+            demo1:
+                url: jdbc:mysql://127.0.0.1:3306/study?serverTimezone=Asia/Shanghai&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&useAffectedRows=true
+                username: root
+                password: root123456
