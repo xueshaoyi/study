@@ -8,14 +8,14 @@ import java.util.List;
 public interface UserDao {
     int insertSelective(UserModel record);
 
-
     @Select({
-        "select",
-        "id, login_name, user_name, password, status, create_time, update_time, is_delete",
-        "from user",
-        "where id = #{id,jdbcType=BIGINT}"
+            "select",
+            "id, login_name, user_name, password, status, create_time, update_time, is_delete",
+            "from user",
+            "where id = #{userId,jdbcType=BIGINT}"
     })
-    UserModel selectByPrimaryKey(Long id);
+    @ResultMap(value = "com.study.dao.UserDao.BaseResultMap")
+    UserModel selectByPrimaryKey(Long userId);
 
     @Select({
             "select",

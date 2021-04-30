@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.dao.TokenDao">
+    <sql id="tableName">
+		user_token
+	</sql>
+
+
+    <sql id="insertFields">
+		user_id, token, date_expired, description
+	</sql>
+
+    <insert id="add" parameterType="com.study.model.TokenModel"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO <include refid="tableName"/>(user_id, token, expires_time)
+        VALUES(#{userId}, #{token}, #{expiresTime});
+    </insert>
+
+
+    <select id="getUserIdByToken" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT user_id FROM <include refid="tableName"/>
+        WHERE
+        token = #{token} AND is_delete = 0 AND expires_time > CURRENT_TIMESTAMP() limit 1
+    </select>
+
+    <update id="logoutByTokens">
+        UPDATE <include refid="tableName"/> SET is_delete = 1
+        WHERE is_delete = 0
+        AND token IN
+        <foreach collection="tokens" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="getThirdLastTokenByUserId" resultType="com.study.model.TokenModel">
+        SELECT
+        *
+        FROM
+        <include refid="tableName"/>
+        WHERE
+        user_id = #{userId}
+        ORDER BY
+        update_time
+        DESC
+        limit 1
+    </select>
+
+
+</mapper>
