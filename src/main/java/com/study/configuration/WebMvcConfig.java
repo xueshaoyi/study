@@ -1,5 +1,6 @@
 package com.study.configuration;
 
+import com.github.pagehelper.PageHelper;
 import com.study.service.TokenService;
 import com.study.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.List;
+import java.util.Properties;
 
 /**
  * @author xsy
@@ -38,6 +40,18 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
                 argumentResolvers.add(new ArgumentResolver(tokenService, userService));
             }
         };
+    }
+
+    @Bean
+    public PageHelper getPageHelper() {
+        PageHelper pageHelper = new PageHelper();
+        Properties properties = new Properties();
+        properties.setProperty("helperDialect", "mysql");
+        properties.setProperty("reasonable", "true");
+        properties.setProperty("supportMethodsArguments", "true");
+        properties.setProperty("params", "count=countSql");
+        pageHelper.setProperties(properties);
+        return pageHelper;
     }
 
 }

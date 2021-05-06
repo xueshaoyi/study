@@ -4,6 +4,16 @@ server:
 mybatis:
     default-datasource: defaultDataSource
     mapper-locations: classpath*:mappers/*.xml
+    plugins:
+        pagehelper:
+            dialect: mysql
+            offsetAsPageNum: true
+            rowBoundsWithCount: true
+            pageSizeZero: true
+            reasonable: false
+            params: 'pageNum=pageHelperStart;pageSize=pageHelperRows;'
+            supportMethodsArguments: false
+            returnPageInfo: none
 
 spring:
     datasource:
@@ -12,3 +22,4 @@ spring:
                 url: jdbc:mysql://127.0.0.1:3306/study?serverTimezone=Asia/Shanghai&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&useAffectedRows=true
                 username: root
                 password: yiaijin1314
+

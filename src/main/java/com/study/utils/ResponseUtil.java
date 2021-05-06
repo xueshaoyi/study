@@ -20,6 +20,10 @@ public class ResponseUtil {
 		return makeResponse(1, message, null);
 	}
 
+	public static <T> Response<T> makeNoLogin(String message) {
+		return makeResponse(2, message, null);
+	}
+
 	public static <T> Response<T> makeSuccess(T obj) {
 		return makeResponse(0, "", obj);
 	}

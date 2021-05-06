@@ -43,3 +43,48 @@ CREATE TABLE `user_plan` (
   KEY `idx_update_time` (`update_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='计划表';
 
+CREATE TABLE `user_note` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `user_id` bigint unsigned NOT NULL DEFAULT '0' COMMENT 'user_id',
+  `note_name` varchar(500) NOT NULL DEFAULT '' COMMENT '笔记名',
+  `describe` text(2000) NOT NULL COMMENT '笔记描述',
+  `type` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '笔记类型 0 学习笔记 1 作业笔记 2 习题笔记',
+  `is_delete` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '逻辑删除位,1为删除，0为正常',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_create_time` (`create_time`),
+  KEY `idx_update_time` (`update_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='笔记表';
+
+CREATE TABLE `user_lessons` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `user_id` int unsigned NOT NULL DEFAULT '0' COMMENT 'user_id',
+  `class_id` int unsigned NOT NULL DEFAULT 0 COMMENT '第几节课',
+  `lessons_number` int NOT NULL DEFAULT 0 COMMENT '周几课程',
+  `lessons_name` varchar(500) NOT NULL DEFAULT '' COMMENT '课程名',
+  `lessons_teacher` varchar(500) NOT NULL DEFAULT '' COMMENT '老师',
+  `lessons_address` varchar(500) NOT NULL DEFAULT '' COMMENT '教室',
+  `is_delete` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '逻辑删除位,1为删除，0为正常',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_create_time` (`create_time`),
+  KEY `idx_update_time` (`update_time`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='课表';
+
+
+CREATE TABLE `forum` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `user_name` varchar(100) NOT NULL DEFAULT '' COMMENT '用户名',
+  `title` varchar(500) NOT NULL DEFAULT '' COMMENT '谈论标题',
+  `content` text NOT NULL COMMENT '谈论内容',
+  `is_delete` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '逻辑删除位,1为删除，0为正常',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_create_time` (`create_time`),
+  KEY `idx_update_time` (`update_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='论坛';

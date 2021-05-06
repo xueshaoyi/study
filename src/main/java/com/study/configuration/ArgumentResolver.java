@@ -40,6 +40,9 @@ public class ArgumentResolver implements HandlerMethodArgumentResolver {
         String token = request.getHeader("token");
 
         token = StringUtils.isNotEmpty(token) ? token : request.getHeader("AuthorizationV2");
+        if (StringUtils.isEmpty(token)) {
+            return null;
+        }
         long userId = tokenService.getUserIdByToken(token);
         UserModel userModel = userService.getUserById(userId);
         if (user != null) {
